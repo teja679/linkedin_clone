@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './styles.css'
 import CreateIcon from '@mui/icons-material/Create'
 import ImageIcon from '@mui/icons-material/Image'
@@ -6,8 +6,18 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
 import EventNoteIcon from '@mui/icons-material/EventNote'
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay'
 import InputOptions from '../../components/InputOptions/InputOptions'
-import Posts from '../../components/Posts/Posts'
+import Post from '../../components/Post/Post'
+import { db } from '../../firebase'
 const Feed = () => {
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    db.collection('posts')
+  }, [])
+  const sendPost = e => {
+    e.preventDefault()
+
+  }
   return (
     <div className='feed'>
       <div className='feed_inputContainer'>
@@ -15,7 +25,7 @@ const Feed = () => {
           <CreateIcon />
           <form>
             <input type='text' />
-            <button type='submit'>Send</button>
+            <button onClick={sendPost} type='submit'>Send</button>
           </form>
         </div>
         <div className='feed_inputOptions'>
@@ -26,11 +36,11 @@ const Feed = () => {
         </div>
       </div>
 
-      {/* Posts */}
-      <Posts name='Sonny Sangha' description='This is a test'
-      message='WOW this is worked!' />
-      <Posts name='Sonny Sangha' description='This is a test'
-      message='WOW this is worked!' />
+      {/* Post */}
+      {posts.map((post) => (
+        <Post name={post.name} description={post.description}
+        message={post.message} />
+      ))}
     </div>
   )
 }
