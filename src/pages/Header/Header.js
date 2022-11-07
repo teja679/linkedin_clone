@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.css'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import HeaderOption from '../HeaderOption/HeaderOption';
+import HeaderOption from '../../components/HeaderOption/HeaderOption';
 import HomeIcon from '@mui/icons-material/Home';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
