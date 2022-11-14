@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.css'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import HeaderOption from '../../components/HeaderOption/HeaderOption';
+import HeaderOption from '../../components/HeaderOption';
 import HomeIcon from '@mui/icons-material/Home';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
@@ -27,7 +27,7 @@ function Header() {
             <HeaderOption Icon={BusinessCenterIcon} title='Jobs' />
             <HeaderOption Icon={ChatIcon} title='Messaging' />
             <HeaderOption Icon={NotificationsIcon} title='Notifications' />
-            <HeaderOption avatar={NotificationsIcon} title='me' />
+            <HeaderOption avatar='https://cdn-icons-png.flaticon.com/512/168/168882.png' title='me' />
         </div>
     </div>
   )

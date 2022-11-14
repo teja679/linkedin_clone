@@ -5,25 +5,32 @@ import ImageIcon from '@mui/icons-material/Image'
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
 import EventNoteIcon from '@mui/icons-material/EventNote'
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay'
-import InputOptions from '../../components/InputOptions/InputOptions'
-import Post from '../../components/Post/Post'
+import InputOptions from '../../components/InputOptions'
+import Post from '../../components/Post'
 import { db } from '../../firebase'
 const Feed = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+
+  function fetchPosts() {
+    const docList = [];
+    db.collection("posts")
+      .onSnapshot((snapshot) => {
+        snapshot.forEach((doc) => {
+          docList.push({
+            id: doc.id,
+            data: doc.data()
+          });
+        });
+        setPosts(docList);
+      });
+  }
 
   useEffect(() => {
-    db.collection('posts').onSnapshot(snapshot => (
-      setPosts(snapshot.docs.map(doc => (
-        {
-          id: doc.id,
-          data: doc.data(),
-        }
-      )))
-    ))
+    fetchPosts()
   }, [])
+
   const sendPost = e => {
     e.preventDefault()
-
   }
   return (
     <div className='feed'>

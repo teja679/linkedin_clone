@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material'
 import React from 'react'
-import InputOptions from '../InputOptions/InputOptions'
+import InputOptions from '../InputOptions'
 import './styles.css'
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
