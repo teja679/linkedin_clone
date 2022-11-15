@@ -8,38 +8,44 @@ import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay'
 import InputOptions from '../../components/InputOptions'
 import Post from '../../components/Post'
 import { db } from '../../firebase'
+import { addDoc, collection, doc, getDocs } from 'firebase/firestore'
+import { FirebaseError } from 'firebase/app'
 const Feed = () => {
   const [posts, setPosts] = useState([]);
-
-  function fetchPosts() {
-    const docList = [];
-    db.collection("posts")
-      .onSnapshot((snapshot) => {
-        snapshot.forEach((doc) => {
-          docList.push({
-            id: doc.id,
-            data: doc.data()
-          });
-        });
-        setPosts(docList);
-      });
-  }
-
+  const [input, setInput] = useState('')
+  const userCollectionRef = collection(db, 'posts')
   useEffect(() => {
-    fetchPosts()
+    const getPosts = async () => {
+      const postData = await getDocs(userCollectionRef)
+
+      setPosts(postData.docs.map((doc) => ({
+       ...doc.data(), id: doc.id,
+      })))
+      // console.log(posts)
+    }
+    getPosts()
   }, [])
 
-  const sendPost = e => {
+  const sendPost = async (e) => {
     e.preventDefault()
+    await addDoc(userCollectionRef, {
+      name: 'Teja',
+      message: input,
+      description: 'this is test',
+      photoUrl : '',
+      // timestamp: firebase.firestore.FindValue.serverTimestamp()
+    })
+    setInput('')
   }
+  console.log(posts)
   return (
     <div className='feed'>
       <div className='feed_inputContainer'>
         <div className='feed_input'>
           <CreateIcon />
           <form>
-            <input type='text' />
-            <button onClick={sendPost} type='submit'>Send</button>
+            <input value={input} onChange={e => setInput(e.target.value)} />
+            <button type='submit' onClick={sendPost}>Send</button>
           </form>
         </div>
         <div className='feed_inputOptions'>
@@ -51,9 +57,9 @@ const Feed = () => {
       </div>
 
       {/* Post */}
-      {posts.map((post) => (
-        <Post name={post.name} description={post.description}
-        message={post.message} />
+      {posts.map(( {name, message, description, photoUrl}) => (
+        <Post key={name} name={name} description={description}
+        message={message} photoUrl={photoUrl} />
       ))}
     </div>
   )
