@@ -9,7 +9,7 @@ import InputOptions from '../../components/InputOptions'
 import Post from '../../components/Post'
 import { db } from '../../firebase'
 import { addDoc, collection, doc, getDocs } from 'firebase/firestore'
-import { FirebaseError } from 'firebase/app'
+
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState('')
