@@ -15,12 +15,12 @@ function App() {
       <Header />
       
       {/* {!user ? ( */}
-        <Login />
+        {/* <Login /> */}
       {/* ) : ( */}
-        {/* <div className="app_body">
+        <div className="app_body">
           <Sidebar />
           <Feed />
-        </div> */}
+        </div>
       {/* )} */}
     </div>
   );
